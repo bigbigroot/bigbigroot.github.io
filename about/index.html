@@ -16,7 +16,7 @@
   <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
   <link rel="manifest" href="/images/manifest.json">
   <meta name="msapplication-config" content="/images/browserconfig.xml">
-  <link rel="alternate" href="/atom.xml" title="GOP" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="BLOG" type="application/atom+xml">
 
 <link rel="stylesheet" href="/css/main.css?v=7.4.1">
 
@@ -62,7 +62,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="关于我">
 <meta property="og:url" content="http://yoursite.com/about/index.html">
-<meta property="og:site_name" content="GOP">
+<meta property="og:site_name" content="BLOG">
 <meta property="og:description" content="鲁迅曾说过：“只看一个人的著作，结果是不大好的：你就得不到多方面的优点。必须如蜜蜂一样，采过许多花，这才能酿出蜜来。倘若叮在一处，所得就非常有限，枯燥了。” 因此，我们不生产代码，我们只是代码的搬运工。 ————谨献给全世界为代码传播做出卓越贡献的人们。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-10-11T07:24:40.783Z">
@@ -83,7 +83,7 @@
   };
 </script>
 
-  <title>关于我 | GOP</title>
+  <title>关于我 | BLOG</title>
   
 
 
@@ -130,11 +130,11 @@
     <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">GOP</span>
+        <span class="site-title">BLOG</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">Github-Oriented Programming or Google-Oriented Programming</p>
+        <p class="site-subtitle">Wheever you feel critizing any one, just remember that all the people in this world haven't had the advantages that you've had.</p>
       
   </div>
 
@@ -286,6 +286,9 @@
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -324,7 +327,7 @@
       src="/images/me.png"
       alt="bigbigroot">
   <p class="site-author-name" itemprop="name">bigbigroot</p>
-  <div class="site-description" itemprop="description">专攻低性能程序</div>
+  <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -370,30 +373,6 @@
       <i class="fa fa-rss"></i>RSS
     </a>
   </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="https://github.com/bigbigroot" title="GitHub &rarr; https://github.com/bigbigroot" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-      </span>
-    
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="mailto:greatgreatroot@gmail.com" title="E-Mail &rarr; mailto:greatgreatroot@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-      </span>
-    
-  </div>
 
 
 
@@ -418,8 +397,6 @@
   <span class="author" itemprop="copyrightHolder">Huang Weigen</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1</div>
 
         
 
@@ -477,6 +454,25 @@
   
 
   
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'e230cb13b7b443182c62',
+      clientSecret: 'c4b1c5dc77da828f9b9fa17d1d6be5e5a17585ea',
+      repo: 'bigbigroot.github.io',
+      owner: 'bigbigroot',
+      admin: ['bigbigroot'],
+      id: '3be7aa98d992907175cbd79c194399f2',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>
