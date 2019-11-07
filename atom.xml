@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>BLOG</title>
+  <title>Tech.BLOG</title>
   
-  <subtitle>Wheever you feel critizing any one, just remember that all the people in this world haven&#39;t had the advantages that you&#39;ve had.</subtitle>
+  
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
