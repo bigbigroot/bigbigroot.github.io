@@ -58,17 +58,19 @@
   };
 </script>
 
-  <meta name="description" content="专攻低性能程序">
-<meta property="og:type" content="website">
-<meta property="og:title" content="GOP">
-<meta property="og:url" content="http://yoursite.com/categories/Others/index.html">
+  <meta name="description" content="当你为在单片机中为多任务编程苦恼时，不妨试试它！！！">
+<meta name="keywords" content="IoT,OS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Contiki OS 简介">
+<meta property="og:url" content="http://yoursite.com/2019/10/19/Contiki-OS/index.html">
 <meta property="og:site_name" content="GOP">
-<meta property="og:description" content="专攻低性能程序">
+<meta property="og:description" content="当你为在单片机中为多任务编程苦恼时，不妨试试它！！！">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-23T16:15:38.713Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GOP">
-<meta name="twitter:description" content="专攻低性能程序">
-  <link rel="canonical" href="http://yoursite.com/categories/Others/">
+<meta name="twitter:title" content="Contiki OS 简介">
+<meta name="twitter:description" content="当你为在单片机中为多任务编程苦恼时，不妨试试它！！！">
+  <link rel="canonical" href="http://yoursite.com/2019/10/19/Contiki-OS/">
 
 
 <script id="page-configurations">
@@ -76,13 +78,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>分类: Others | GOP</title>
+  <title>Contiki OS 简介 | GOP</title>
   
 
 
@@ -223,81 +225,143 @@
         <div class="content-wrap">
             
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
           <div id="content" class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">Others<small>分类</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/19/Contiki-OS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bigbigroot">
+      <meta itemprop="description" content="专攻低性能程序">
+      <meta itemprop="image" content="/images/me.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GOP">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Contiki OS 简介
+
+          
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-19 19:00:00" itemprop="dateCreated datePublished" datetime="2019-10-19T19:00:00Z">2019-10-19</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-23 16:15:38" itemprop="dateModified" datetime="2019-10-23T16:15:38Z">2019-10-23</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Operation-System/" itemprop="url" rel="index"><span itemprop="name">Operation System</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Operation-System/Contiki/" itemprop="url" rel="index"><span itemprop="name">Contiki</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+        <p>当你为在单片机中为多任务编程苦恼时，不妨试试它！！！</p>
+<a id="more"></a>
+<p>Contiki是一种适用于计算资源比较受限的计算机系统。在我一开始接触时就咋舌于其设计的精巧，其相比于FreeRTOS之类的系统更加对内存的占用更低。这个操作系统使用ProtoThread来实现多任务（之后会介绍），这种方式与使用线程来实现多任务相比天然具有更小的占用运行时的内存消耗的优势。在移植性上也几乎没有任何问题，甚至可以认为不需要移植（其实唯一影响移植的C编译器对标准C语法的支持）。</p>
+<p>在任务调度方面，Contiki采用事件驱动的模型。事件的来源可以是中断或其他任务。因此基于以上几点，如果设计的单片机程序，使用的单片机有足够的空间（可以使用栈和几k的ROM），并且各个任务适合用事件驱动来组织的话，使用Contiki是很适合了。</p>
+<h2 id="ProtoThread"><a href="#ProtoThread" class="headerlink" title="ProtoThread"></a>ProtoThread</h2><p>ProtoThread的主要特点是共享运行栈，也就是说运行时栈占用的总的大小就是占用栈最大的任务的占用量。在内存特别受限的系统中，维持单个栈就已经小心翼翼了更别说是多个栈。</p>
+<p>Contiki实现ProtoThread的方法，有点类似于模拟了一种状态机，但从编程者的角度来看，这两种方式完全不同。</p>
 
-  
-  
+    </div>
 
-  
     
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-10T10:59:50Z"
-              content="2019-10-10">
-          10-10
-        </time>
-      </div>
-
-      <h2 class="post-title">
+    
+    
         
-          <a class="post-title-link" href="/2019/10/10/hello-world/" itemprop="url">
-            <span itemprop="name">如何搭建个人博客</span>
-          </a>
-        
-      </h2>
+      
 
-    </header>
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/IoT/" rel="tag"># IoT</a>
+            
+              <a href="/tags/OS/" rel="tag"># OS</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/10/hello-world/" rel="next" title="如何搭建个人博客">
+                  <i class="fa fa-chevron-left"></i> 如何搭建个人博客
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -314,6 +378,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -326,6 +395,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ProtoThread"><span class="nav-number">1.</span> <span class="nav-text">ProtoThread</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
