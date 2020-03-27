@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://bigbigroot.online/"/>
-  <updated>2020-03-25T21:35:00.017Z</updated>
+  <updated>2020-03-27T15:28:17.856Z</updated>
   <id>https://bigbigroot.online/</id>
   
   <author>
@@ -17,13 +17,65 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>IA32 中断处理流程</title>
+    <link href="https://bigbigroot.online/Computer-Architecture/IA32/x86-interupt-mechanism/"/>
+    <id>https://bigbigroot.online/Computer-Architecture/IA32/x86-interupt-mechanism/</id>
+    <published>2020-03-27T09:47:03.000Z</published>
+    <updated>2020-03-27T15:28:17.856Z</updated>
+    
+    <content type="html"><![CDATA[<p>IA32的任务机制和中断处理流程紧密相关。IA32处理器包含4个特权等级。当发生中断时，中断处理流程就会涉及到特权级的改变。</p><a id="more"></a><p>中断可以区分为外部设备产生的中断和內部软件产生的异常。异常使用中断向量表中<code>0~31</code>的向量。中断在总断向量表的<code>32~255</code>的位置。</p><h2 id="中断符号表（IDT）"><a href="#中断符号表（IDT）" class="headerlink" title="中断符号表（IDT）"></a>中断符号表（IDT）</h2><p>中断符号表包含中断处理程序或任务的门描述符。中断向量指向中断符号表的索引，也就是说在IA32的处理器下，中断符号表有类似于中断向量表的作用。IDTR寄存器储存中断符号表的起始地址和长度。在操作系统初始化时，LIDT和SIDT指令可以操作IDTR寄存器。</p><p>和GDT以及LDT不同，中断符号表只储存门描述符，门描述符以八字节对齐，包括 任务门描述符、中断门描述符和陷阱(Trap)门描述符。任务门描述符在之前的IA32任务切换机制一文中提到过。中断门描述符和陷阱门描述符相似，相比于任务门描述符添加了一个偏移量。中断门描述符和陷阱门描述符的Segment Sector一般指向Code Segment，加上偏移量后指向对应的中断处理程序。</p><p><img src="/images/IA32_Arch_gate_decription.png" alt="门描述符（Gate Description）"></p><p>中断描述符表中的任务门描述符指向一个中断任务。当发生的中断的中断向量指向任务门描述符，处理器就会切换任务。</p><h2 id="中断处理"><a href="#中断处理" class="headerlink" title="中断处理"></a>中断处理</h2><p>当中断发生时，当前执行的程序被迫放弃当前的CPU，CPU将会执行中断处理程序。当从较低的特权级用户程序空间跳转更高特权级的中断处理例程时，处理器需要使用当前TSS中记录的中断处理例程权限的Segment Sector和栈指针。之后，新的栈被压入Segment Sector和栈指针。下一步的步骤和相同特权级的中断处理例程跳转的处理流程相同。当前的处理器的当前状态会被压入这个新的栈，依次包含标志位寄存器、代码段寄存器、程序计数器。如果进入的是一个异常处理流程，错误码会被压入栈的最后。</p><p>中断处理程序最后运行IRET指令返回，被中断的程序状态会被从栈中恢复，之后会切换到原先的栈。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;IA32的任务机制和中断处理流程紧密相关。IA32处理器包含4个特权等级。当发生中断时，中断处理流程就会涉及到特权级的改变。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Computer Architecture" scheme="https://bigbigroot.online/categories/Computer-Architecture/"/>
+    
+      <category term="IA32" scheme="https://bigbigroot.online/categories/Computer-Architecture/IA32/"/>
+    
+    
+      <category term="x86" scheme="https://bigbigroot.online/tags/x86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>FreeBSD内核的上半部和下半部</title>
+    <link href="https://bigbigroot.online/operation-system/FreeBSD/freebsd-kernel-service/"/>
+    <id>https://bigbigroot.online/operation-system/FreeBSD/freebsd-kernel-service/</id>
+    <published>2020-03-26T19:30:18.000Z</published>
+    <updated>2020-03-27T19:30:50.033Z</updated>
+    
+    <content type="html"><![CDATA[<p>操作内核主要负责给用户进程提供服务，用户进程通过系统调用获取内核服务。FreeBSD内核被分为上半部和下半部。上半部内核负责处理来自用户进程的系统调用。下半部内核处理来自硬件中断。下半部内核面对中断的活动是同步的，而到了上半部内核是异步的。上半部和下半部内核通过工作队列进行通讯。</p><a id="more"></a><p>上半部内核执行需要在处理器的特权模式下运行的操作，比如：访问内核数据，上下文切换。FreeBSD内核在上半部运行时可以被抢占，而去执行其他的用户进程，比如一个进程为了一个读取文件的操作而进入阻塞状态。当中断来临时，上半部内核通常也会被内核的中断处理进程抢占。因此，在上半部内核操作工作队列时需要加入互斥锁保护。</p><p>举个例子，当用户进程尝试发起一次IO操作，上半部内核执行对硬件设备的操作，之后主动挂起。同时，让发起请求的用户进程进入阻塞状态，等待下半部内核对它的唤醒通知。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;操作内核主要负责给用户进程提供服务，用户进程通过系统调用获取内核服务。FreeBSD内核被分为上半部和下半部。上半部内核负责处理来自用户进程的系统调用。下半部内核处理来自硬件中断。下半部内核面对中断的活动是同步的，而到了上半部内核是异步的。上半部和下半部内核通过工作队列进行通讯。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="operation system" scheme="https://bigbigroot.online/categories/operation-system/"/>
+    
+      <category term="FreeBSD" scheme="https://bigbigroot.online/categories/operation-system/FreeBSD/"/>
+    
+    
+      <category term="OS" scheme="https://bigbigroot.online/tags/OS/"/>
+    
+      <category term="Kernel" scheme="https://bigbigroot.online/tags/Kernel/"/>
+    
+  </entry>
+  
+  <entry>
     <title>IA32的多任务上下文切换</title>
     <link href="https://bigbigroot.online/Computer-Architecture/IA32/x86-multi-task-implement/"/>
     <id>https://bigbigroot.online/Computer-Architecture/IA32/x86-multi-task-implement/</id>
     <published>2020-03-24T22:13:44.000Z</published>
-    <updated>2020-03-25T21:35:00.017Z</updated>
+    <updated>2020-03-26T18:25:46.050Z</updated>
     
-    <content type="html"><![CDATA[<p>最近看了Andrew S. Tanenbaum的操作系统设计与实现一书并且看了一下Minix 3.0的源码。Minix 3.0只支持i386cpu。因此，我也乘着这个机会了解一下IA32的知识。</p><p>由于一些历史遗留问题，采用IA32以及IA32e架构的cpu，采用了独特的基于段的内存管理。因此，任务切换需要切换段基址等一系列的操作。IA32提供了一系列机制去实现这类操作。</p><a id="more"></a><p>IA32支持实模式和保护模式。我接下来所说的只是IA32的保护模式下的操作。</p><h2 id="TSS"><a href="#TSS" class="headerlink" title="TSS"></a>TSS</h2><p>每个任务包含两个部分：TSS(Task-State Segment)和程序代码的执行空间。TSS内保存当前任务的状态，包括通用寄存器、段寄存器、LDT的segment sector、页表目录的基地址(CR3寄存器)、栈指针和栈段基址寄存器、I / O端口许可权位图等。每一个TSS需要一个TSS描述符(TSS Descriptor)。Tss描述符和其他的段描述符一样包含段基址(32bit)以及段的大小(20bit) 、访问控制信息，但只能保存在GDT中。TSS的字段需要32位对齐，不足的高位补零。</p><p>TSS可以组成一个类似于一个链表的结构。在TSS的Previous Task Link字段，包含一个16位的segment sector指向前一个任务的TSS描述符，以实现任务的嵌套调用。当一个任务切换到另外一个任务时，处理器将任务状态储存到Previous Task Link指向的TSS。</p><h2 id="任务门描述符"><a href="#任务门描述符" class="headerlink" title="任务门描述符"></a>任务门描述符</h2><p>任务门描述符指向TSS。其可以保存在IDT、GDT和LDT中。任务门描述符包含了TSS segment sector和访问控制信息。</p><h2 id="任务寄存器"><a href="#任务寄存器" class="headerlink" title="任务寄存器"></a>任务寄存器</h2><p>Task Register(TR)储存指向当前任务的TSS的sector。特权指令LTR可以将数据从内存加载到Task Register 。这张图片是来自于Intel开发者手册, 很好的说明了TSS和Task Register的关系。</p><p><img src="/images/IA32_TSS_Nested_Task.png" alt></p><h2 id="任务切换"><a href="#任务切换" class="headerlink" title="任务切换"></a>任务切换</h2><p>在以下几种情况发生时，会被处理器认为时是一次任务切换：</p><ul><li>执行JMP或CALL指令跳转到TSS描述符以及任务门描述符。</li><li>中断或异常向量在IDT里指向任务门描述符</li><li>执行IRET指令（当前任务嵌套在上一个任务内）</li></ul><p>当执行了上述操作后，处理器就开始进行任务切换。第一步，处理器会检查当前任务有权切换到指定的任务。TSS描述符或者任务门的DPL字段必须小于或者等于CPL和门选择子RPL字段的最大值。中断、异常、IRET指令可以切换到任何任务。而检查不通过时，处理器会跳入#GP异常。第二步，检查TSS描述符或是任务门描述符是否可用，然后检查新任务是否处于空闲状态。这时如果是 IRET和JMP指令导致的任务切换，处理器会将TSS描述符的busy位清零。下一步将当前的程序状态保存到当前的TSS，包含：通用寄存器、段寄存器的segment sector、EFLAGS寄存器、当前的栈指针。第五步，除了IRET导致的情况，处理器会将新的TSS描述符的busy位置位，并且新任务的TSS segment  sector会被加载到任务寄存器。第六步，新任务的TSS的内容会被处理器加载到处理器相应的寄存器。</p><h2 id="MINIX-的情况"><a href="#MINIX-的情况" class="headerlink" title="MINIX 的情况"></a>MINIX 的情况</h2><p>虽然操作系统可以给每一个进程分配一个TSS，但MINIX只给每一个CPU分配一个TSS。</p>]]></content>
+    <content type="html"><![CDATA[<p>最近看了Andrew S. Tanenbaum的操作系统设计与实现一书并且看了一下Minix 3.0的源码。Minix 3.0只支持i386cpu。因此，我也乘着这个机会了解一下IA32的知识。</p><p>由于一些历史遗留问题，采用IA32以及IA32e架构的cpu，采用了独特的基于段的内存管理。因此，任务切换需要切换段基址等一系列的操作。IA32提供了一系列机制去实现这类操作。</p><a id="more"></a><p>IA32支持实模式和保护模式。我接下来所说的只是IA32的保护模式下的操作。</p><h2 id="TSS"><a href="#TSS" class="headerlink" title="TSS"></a>TSS</h2><p>每个任务包含两个部分：TSS(Task-State Segment)和程序代码的执行空间。TSS内保存当前任务的状态，包括通用寄存器、段寄存器、LDT的segment sector、页表目录的基地址(CR3寄存器)、栈指针和栈段基址寄存器、I / O端口许可权位图等。每一个TSS需要一个TSS描述符(TSS Descriptor)。Tss描述符和其他的段描述符一样包含段基址(32bit)以及段的大小(20bit) 、访问控制信息，但只能保存在GDT中。TSS的字段需要32位对齐，不足的高位补零。</p><p>TSS可以组成一个类似于一个链表的结构。在TSS的Previous Task Link字段，包含一个16位的segment sector指向前一个任务的TSS描述符，以实现任务的嵌套调用。当一个任务切换到另外一个任务时，处理器将任务状态储存到Previous Task Link指向的TSS。</p><h2 id="任务门描述符"><a href="#任务门描述符" class="headerlink" title="任务门描述符"></a>任务门描述符</h2><p>任务门描述符指向TSS。其可以保存在IDT、GDT和LDT中。任务门描述符包含了TSS segment sector和访问控制信息。</p><h2 id="任务寄存器"><a href="#任务寄存器" class="headerlink" title="任务寄存器"></a>任务寄存器</h2><p>Task Register(TR)储存指向当前任务的TSS的sector。特权指令LTR可以将数据从内存加载到Task Register 。这张图片是来自于Intel开发者手册, 很好的说明了TSS和Task Register的关系。</p><p><img src="/images/IA32_TSS_Nested_Task.png" alt></p><h2 id="任务切换"><a href="#任务切换" class="headerlink" title="任务切换"></a>任务切换</h2><p>在以下几种情况发生时，会被处理器认为时是一次任务切换：</p><ul><li>执行JMP或CALL指令跳转到TSS描述符以及任务门描述符。</li><li>中断或异常向量在IDT里指向任务门描述符</li><li>执行IRET指令（当前任务嵌套在上一个任务内）</li></ul><p>当执行了上述操作后，处理器就开始进行任务切换，其中CALL指令、中断和异常会产生嵌套任务切换的效果。第一步，处理器会检查当前任务有权切换到指定的任务。TSS描述符或者任务门的DPL字段必须小于或者等于CPL和门选择子RPL字段的最大值。中断、异常、IRET指令可以切换到任何任务。而检查不通过时，处理器会跳入#GP异常。第二步，检查TSS描述符或是任务门描述符是否可用，然后检查新任务是否处于空闲状态。这时如果是 IRET和JMP指令导致的任务切换，处理器会将TSS描述符的busy位清零。下一步将当前的程序状态保存到当前的TSS，包含：通用寄存器、段寄存器的segment sector、EFLAGS寄存器、当前的栈指针。第五步，除了IRET导致的情况，处理器会将新的TSS描述符的busy位置位，并且新任务的TSS segment  sector会被加载到任务寄存器。第六步，新任务的TSS的内容会被处理器加载到处理器相应的寄存器。</p><h2 id="MINIX-的情况"><a href="#MINIX-的情况" class="headerlink" title="MINIX 的情况"></a>MINIX 的情况</h2><p>虽然操作系统可以给每一个进程分配一个TSS，但MINIX只给每一个CPU分配一个TSS。TSS仅作为用户进程和中断程序之间跳转使用。</p>]]></content>
     
     <summary type="html">
     

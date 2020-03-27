@@ -58,14 +58,19 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Weh.BLOG">
-<meta property="og:url" content="https://bigbigroot.online/archives/2019/index.html">
+  <meta name="description" content="操作内核主要负责给用户进程提供服务，用户进程通过系统调用获取内核服务。FreeBSD内核被分为上半部和下半部。上半部内核负责处理来自用户进程的系统调用。下半部内核处理来自硬件中断。下半部内核面对中断的活动是同步的，而到了上半部内核是异步的。上半部和下半部内核通过工作队列进行通讯。">
+<meta name="keywords" content="OS,Kernel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FreeBSD内核的上半部和下半部">
+<meta property="og:url" content="https://bigbigroot.online/operation-system/FreeBSD/freebsd-kernel-service/index.html">
 <meta property="og:site_name" content="Weh.BLOG">
+<meta property="og:description" content="操作内核主要负责给用户进程提供服务，用户进程通过系统调用获取内核服务。FreeBSD内核被分为上半部和下半部。上半部内核负责处理来自用户进程的系统调用。下半部内核处理来自硬件中断。下半部内核面对中断的活动是同步的，而到了上半部内核是异步的。上半部和下半部内核通过工作队列进行通讯。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-27T19:30:50.033Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Weh.BLOG">
-  <link rel="canonical" href="https://bigbigroot.online/archives/2019/">
+<meta name="twitter:title" content="FreeBSD内核的上半部和下半部">
+<meta name="twitter:description" content="操作内核主要负责给用户进程提供服务，用户进程通过系统调用获取内核服务。FreeBSD内核被分为上半部和下半部。上半部内核负责处理来自用户进程的系统调用。下半部内核处理来自硬件中断。下半部内核面对中断的活动是同步的，而到了上半部内核是异步的。上半部和下半部内核通过工作队列进行通讯。">
+  <link rel="canonical" href="https://bigbigroot.online/operation-system/FreeBSD/freebsd-kernel-service/">
 
 
 <script id="page-configurations">
@@ -73,13 +78,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | Weh.BLOG</title>
+  <title>FreeBSD内核的上半部和下半部 | Weh.BLOG</title>
   
 
 
@@ -204,24 +209,6 @@
 
     
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
 </nav>
 </div>
     </header>
@@ -239,128 +226,150 @@
           <div id="content" class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        
-        
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://bigbigroot.online/operation-system/FreeBSD/freebsd-kernel-service/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bigbigroot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Weh.BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">FreeBSD内核的上半部和下半部
+
           
-        
-        <span class="collection-header">嗯..! 目前共计 6 篇日志。 继续努力。</span>
-      </div>
-      
+        </h1>
 
-      
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-  
-  
+              
+                
+              
 
-  
+              <time title="创建时间：2020-03-26 19:30:18" itemprop="dateCreated datePublished" datetime="2020-03-26T19:30:18Z">2020-03-26</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-27 19:30:50" itemprop="dateModified" datetime="2020-03-27T19:30:50Z">2020-03-27</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/operation-system/" itemprop="url" rel="index"><span itemprop="name">operation system</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/operation-system/FreeBSD/" itemprop="url" rel="index"><span itemprop="name">FreeBSD</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
     
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
-  
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>操作内核主要负责给用户进程提供服务，用户进程通过系统调用获取内核服务。FreeBSD内核被分为上半部和下半部。上半部内核负责处理来自用户进程的系统调用。下半部内核处理来自硬件中断。下半部内核面对中断的活动是同步的，而到了上半部内核是异步的。上半部和下半部内核通过工作队列进行通讯。</p>
+<a id="more"></a>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-19T19:00:00Z"
-              content="2019-10-19">
-          10-19
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/Operation-System/Contiki/Contiki-OS/" itemprop="url">
-            <span itemprop="name">Contiki OS</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-19T18:00:00Z"
-              content="2019-10-19">
-          10-19
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/Operation-System/Contiki/ProtoThread/" itemprop="url">
-            <span itemprop="name">ProtoThread</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-10T10:59:50Z"
-              content="2019-10-10">
-          10-10
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/Others/hello-world/" itemprop="url">
-            <span itemprop="name">如何搭建个人博客</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
+<p>上半部内核执行需要在处理器的特权模式下运行的操作，比如：访问内核数据，上下文切换。FreeBSD内核在上半部运行时可以被抢占，而去执行其他的用户进程，比如一个进程为了一个读取文件的操作而进入阻塞状态。当中断来临时，上半部内核通常也会被内核的中断处理进程抢占。因此，在上半部内核操作工作队列时需要加入互斥锁保护。</p>
+<p>举个例子，当用户进程尝试发起一次IO操作，上半部内核执行对硬件设备的操作，之后主动挂起。同时，让发起请求的用户进程进入阻塞状态，等待下半部内核对它的唤醒通知。</p>
 
     </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/OS/" rel="tag"># OS</a>
+            
+              <a href="/tags/Kernel/" rel="tag"># Kernel</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/Computer-Architecture/IA32/x86-multi-task-implement/" rel="next" title="IA32的多任务上下文切换">
+                  <i class="fa fa-chevron-left"></i> IA32的多任务上下文切换
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/Computer-Architecture/IA32/x86-interupt-mechanism/" rel="prev" title="IA32 中断处理流程">
+                  IA32 中断处理流程 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -373,6 +382,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -522,6 +536,24 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'e230cb13b7b443182c62',
+      clientSecret: 'c4b1c5dc77da828f9b9fa17d1d6be5e5a17585ea',
+      repo: 'bigbigroot.github.io',
+      owner: 'bigbigroot',
+      admin: ['bigbigroot'],
+      id: 'a4ed6d3e9574c3242bf170d6fe3ed9db',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>

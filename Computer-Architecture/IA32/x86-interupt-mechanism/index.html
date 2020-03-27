@@ -58,14 +58,21 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Weh.BLOG">
-<meta property="og:url" content="https://bigbigroot.online/archives/2019/index.html">
+  <meta name="description" content="IA32的任务机制和中断处理流程紧密相关。IA32处理器包含4个特权等级。当发生中断时，中断处理流程就会涉及到特权级的改变。">
+<meta name="keywords" content="x86">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IA32 中断处理流程">
+<meta property="og:url" content="https://bigbigroot.online/Computer-Architecture/IA32/x86-interupt-mechanism/index.html">
 <meta property="og:site_name" content="Weh.BLOG">
+<meta property="og:description" content="IA32的任务机制和中断处理流程紧密相关。IA32处理器包含4个特权等级。当发生中断时，中断处理流程就会涉及到特权级的改变。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://bigbigroot.online/images/IA32_Arch_gate_decription.png">
+<meta property="og:updated_time" content="2020-03-27T15:28:17.856Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Weh.BLOG">
-  <link rel="canonical" href="https://bigbigroot.online/archives/2019/">
+<meta name="twitter:title" content="IA32 中断处理流程">
+<meta name="twitter:description" content="IA32的任务机制和中断处理流程紧密相关。IA32处理器包含4个特权等级。当发生中断时，中断处理流程就会涉及到特权级的改变。">
+<meta name="twitter:image" content="https://bigbigroot.online/images/IA32_Arch_gate_decription.png">
+  <link rel="canonical" href="https://bigbigroot.online/Computer-Architecture/IA32/x86-interupt-mechanism/">
 
 
 <script id="page-configurations">
@@ -73,13 +80,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | Weh.BLOG</title>
+  <title>IA32 中断处理流程 | Weh.BLOG</title>
   
 
 
@@ -204,24 +211,6 @@
 
     
 
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-  
-
 </nav>
 </div>
     </header>
@@ -239,128 +228,141 @@
           <div id="content" class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        
-        
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://bigbigroot.online/Computer-Architecture/IA32/x86-interupt-mechanism/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bigbigroot">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/me.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Weh.BLOG">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">IA32 中断处理流程
+
           
-        
-        <span class="collection-header">嗯..! 目前共计 6 篇日志。 继续努力。</span>
-      </div>
-      
+        </h1>
 
-      
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
 
-  
-  
+              
+                
+              
 
-  
+              <time title="创建时间：2020-03-27 09:47:03 / 修改时间：15:28:17" itemprop="dateCreated datePublished" datetime="2020-03-27T09:47:03Z">2020-03-27</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Architecture/" itemprop="url" rel="index"><span itemprop="name">Computer Architecture</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Computer-Architecture/IA32/" itemprop="url" rel="index"><span itemprop="name">IA32</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
     
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
-  
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>IA32的任务机制和中断处理流程紧密相关。IA32处理器包含4个特权等级。当发生中断时，中断处理流程就会涉及到特权级的改变。</p>
+<a id="more"></a>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-19T19:00:00Z"
-              content="2019-10-19">
-          10-19
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/Operation-System/Contiki/Contiki-OS/" itemprop="url">
-            <span itemprop="name">Contiki OS</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-19T18:00:00Z"
-              content="2019-10-19">
-          10-19
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/Operation-System/Contiki/ProtoThread/" itemprop="url">
-            <span itemprop="name">ProtoThread</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
-  
-  
-
-  
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-10T10:59:50Z"
-              content="2019-10-10">
-          10-10
-        </time>
-      </div>
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/Others/hello-world/" itemprop="url">
-            <span itemprop="name">如何搭建个人博客</span>
-          </a>
-        
-      </h2>
-
-    </header>
-  </article>
-
-
-
+<p>中断可以区分为外部设备产生的中断和內部软件产生的异常。异常使用中断向量表中<code>0~31</code>的向量。中断在总断向量表的<code>32~255</code>的位置。</p>
+<h2 id="中断符号表（IDT）"><a href="#中断符号表（IDT）" class="headerlink" title="中断符号表（IDT）"></a>中断符号表（IDT）</h2><p>中断符号表包含中断处理程序或任务的门描述符。中断向量指向中断符号表的索引，也就是说在IA32的处理器下，中断符号表有类似于中断向量表的作用。IDTR寄存器储存中断符号表的起始地址和长度。在操作系统初始化时，LIDT和SIDT指令可以操作IDTR寄存器。</p>
+<p>和GDT以及LDT不同，中断符号表只储存门描述符，门描述符以八字节对齐，包括 任务门描述符、中断门描述符和陷阱(Trap)门描述符。任务门描述符在之前的IA32任务切换机制一文中提到过。中断门描述符和陷阱门描述符相似，相比于任务门描述符添加了一个偏移量。中断门描述符和陷阱门描述符的Segment Sector一般指向Code Segment，加上偏移量后指向对应的中断处理程序。</p>
+<p><img src="/images/IA32_Arch_gate_decription.png" alt="门描述符（Gate Description）"></p>
+<p>中断描述符表中的任务门描述符指向一个中断任务。当发生的中断的中断向量指向任务门描述符，处理器就会切换任务。</p>
+<h2 id="中断处理"><a href="#中断处理" class="headerlink" title="中断处理"></a>中断处理</h2><p>当中断发生时，当前执行的程序被迫放弃当前的CPU，CPU将会执行中断处理程序。当从较低的特权级用户程序空间跳转更高特权级的中断处理例程时，处理器需要使用当前TSS中记录的中断处理例程权限的Segment Sector和栈指针。之后，新的栈被压入Segment Sector和栈指针。下一步的步骤和相同特权级的中断处理例程跳转的处理流程相同。当前的处理器的当前状态会被压入这个新的栈，依次包含标志位寄存器、代码段寄存器、程序计数器。如果进入的是一个异常处理流程，错误码会被压入栈的最后。</p>
+<p>中断处理程序最后运行IRET指令返回，被中断的程序状态会被从栈中恢复，之后会切换到原先的栈。</p>
 
     </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/x86/" rel="tag"># x86</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/operation-system/FreeBSD/freebsd-kernel-service/" rel="next" title="FreeBSD内核的上半部和下半部">
+                  <i class="fa fa-chevron-left"></i> FreeBSD内核的上半部和下半部
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -373,6 +375,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -385,6 +392,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#中断符号表（IDT）"><span class="nav-number">1.</span> <span class="nav-text">中断符号表（IDT）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中断处理"><span class="nav-number">2.</span> <span class="nav-text">中断处理</span></a></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
@@ -522,6 +531,24 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'e230cb13b7b443182c62',
+      clientSecret: 'c4b1c5dc77da828f9b9fa17d1d6be5e5a17585ea',
+      repo: 'bigbigroot.github.io',
+      owner: 'bigbigroot',
+      admin: ['bigbigroot'],
+      id: 'c2dd91685d560a57e4b3b8d94c5674b5',
+        language: window.navigator.language || window.navigator.userLanguage,
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 </body>
 </html>
