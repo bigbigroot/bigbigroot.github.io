@@ -43,10 +43,10 @@
   
   <entry>
     <title>FreeBSD内核的上半部和下半部</title>
-    <link href="https://bigbigroot.online/operation-system/FreeBSD/freebsd-kernel-service/"/>
-    <id>https://bigbigroot.online/operation-system/FreeBSD/freebsd-kernel-service/</id>
+    <link href="https://bigbigroot.online/Operation-System/FreeBSD/freebsd-kernel-service/"/>
+    <id>https://bigbigroot.online/Operation-System/FreeBSD/freebsd-kernel-service/</id>
     <published>2020-03-26T19:30:18.000Z</published>
-    <updated>2020-03-27T19:30:50.033Z</updated>
+    <updated>2020-03-27T19:36:58.729Z</updated>
     
     <content type="html"><![CDATA[<p>操作内核主要负责给用户进程提供服务，用户进程通过系统调用获取内核服务。FreeBSD内核被分为上半部和下半部。上半部内核负责处理来自用户进程的系统调用。下半部内核处理来自硬件中断。下半部内核面对中断的活动是同步的，而到了上半部内核是异步的。上半部和下半部内核通过工作队列进行通讯。</p><a id="more"></a><p>上半部内核执行需要在处理器的特权模式下运行的操作，比如：访问内核数据，上下文切换。FreeBSD内核在上半部运行时可以被抢占，而去执行其他的用户进程，比如一个进程为了一个读取文件的操作而进入阻塞状态。当中断来临时，上半部内核通常也会被内核的中断处理进程抢占。因此，在上半部内核操作工作队列时需要加入互斥锁保护。</p><p>举个例子，当用户进程尝试发起一次IO操作，上半部内核执行对硬件设备的操作，之后主动挂起。同时，让发起请求的用户进程进入阻塞状态，等待下半部内核对它的唤醒通知。</p>]]></content>
     
@@ -57,9 +57,9 @@
     </summary>
     
     
-      <category term="operation system" scheme="https://bigbigroot.online/categories/operation-system/"/>
+      <category term="Operation System" scheme="https://bigbigroot.online/categories/Operation-System/"/>
     
-      <category term="FreeBSD" scheme="https://bigbigroot.online/categories/operation-system/FreeBSD/"/>
+      <category term="FreeBSD" scheme="https://bigbigroot.online/categories/Operation-System/FreeBSD/"/>
     
     
       <category term="OS" scheme="https://bigbigroot.online/tags/OS/"/>
